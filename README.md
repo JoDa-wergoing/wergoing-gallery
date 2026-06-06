@@ -1,6 +1,6 @@
 # HiGallery
 
-**Version: 1.2.0**
+**Version: 1.3.0**
 
 HiGallery displays photo folders from your STRATO HiDrive account as albums on a WordPress website.
 
