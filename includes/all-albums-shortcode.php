@@ -71,7 +71,7 @@ function higallery_all_albums_shortcode($atts = []): string {
     // Ensure we're always visitor-facing and robust.
     $token = higallery_get_valid_access_token();
     if (!$token) {
-        return '<p>No HiDrive connection. Please connect HiDrive first.</p>';
+        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'higallery' ) . '</p>';
     }
 
     $default_root = get_option('higallery_root_folder', '/');
@@ -98,10 +98,10 @@ function higallery_all_albums_shortcode($atts = []): string {
 $albums = higallery_get_albums_cached($path, (string) $token);
 
     if (empty($albums)) {
-        return '<p>No albums found.</p>';
+        return '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
     }
 
-    $out = '<div class="higallery-wrapper" style="display:flex; flex-wrap:wrap; gap:20px;">';
+    $out = '<div class="higallery-wrapper">';
 
     $rendered = 0;
     foreach ($albums as $album) {
@@ -118,15 +118,15 @@ $albums = higallery_get_albums_cached($path, (string) $token);
             '_wpnonce'       => wp_create_nonce('higallery_browse'),
         ], get_permalink());
 
-        $out .= '<a href="' . esc_url($link) . '" style="width:120px; display:block; text-align:center; text-decoration:none; color:inherit;">';
-        $out .= '<div style="font-size:48px; color:#555;">📁</div>';
-        $out .= '<div style="font-size:12px; word-break:break-word;">' . esc_html($album_name) . '</div>';
+        $out .= '<a href="' . esc_url($link) . '" class="higallery-album-link">';
+        $out .= '<span class="dashicons dashicons-portfolio" aria-hidden="true"></span>';
+        $out .= '<div class="higallery-album-name">' . esc_html($album_name) . '</div>';
         $out .= '</a>';
         $rendered++;
     }
 
     if ($rendered === 0) {
-        $out .= '<p>No albums found.</p>';
+        $out .= '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
     }
 
     $out .= '</div>';

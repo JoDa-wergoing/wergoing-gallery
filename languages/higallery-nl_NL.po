@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: HiGallery\n"
+"Project-Id-Version: HiGallery 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-13 06:03+0000\n"
-"PO-Revision-Date: 2025-07-13 08:31+0000\n"
+"POT-Creation-Date: 2026-01-10 00:00+0000\n"
+"PO-Revision-Date: 2026-01-10 00:00+0000\n"
 "Last-Translator: Joop\n"
 "Language-Team: Nederlands\n"
 "Language: nl_NL\n"
@@ -12,82 +12,176 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.1; php-8.2.28\n"
 "X-Domain: higallery"
-
-#: includes/gallery-shortcode.php:21
-msgid "Cannot load gallery. Check the settings or API connection."
-msgstr "Kan galerij niet laden. Controleer de instellingen of API-verbinding."
-
-#: admin/settings-page.php:26
-msgid "Click the button below to connect to your HiDrive account:"
-msgstr ""
-"Klik op de onderstaande knop om verbinding te maken met uw HiDrive-account:"
-
-#: admin/settings-page.php:42
-msgid "Configuration"
-msgstr "Configuratie"
-
-#: admin/settings-page.php:29
-msgid "Connect to HiDrive"
-msgstr "Verbind met HiDrive"
 
 #. Name of the plugin
 msgid "HiGallery"
 msgstr "HiGallery"
 
-#: admin/settings-page.php:16
-msgid "HiGallery admin page"
-msgstr "HiGallery admin pagina"
+#. Author of the plugin
+msgid "weRgoing JoDa"
+msgstr ""
 
-#: admin/settings-page.php:54
+#: admin/settings-page.php
+msgid "HiGallery Settings"
+msgstr "HiGallery instellingen"
+
+#: admin/settings-page.php
+msgid "Configuration"
+msgstr "Configuratie"
+
+#: admin/settings-page.php
+msgid "Client ID"
+msgstr "Client ID"
+
+#: admin/settings-page.php
+msgid "Client Secret"
+msgstr "Client secret"
+
+#: admin/settings-page.php
+msgid "Enter new secret"
+msgstr "Voer nieuw secret in"
+
+#: admin/settings-page.php
+msgid "The client secret is stored securely. Enter a new value to replace it."
+msgstr "Het client secret is veilig opgeslagen. Voer een nieuwe waarde in om het te vervangen."
+
+#: admin/settings-page.php
 msgid "HiGallery root folder"
 msgstr "HiGallery hoofdmap"
 
-#. Author of the plugin
-msgid "JoDa & Jake 🥷"
-msgstr ""
+#: admin/settings-page.php
+msgid "Thumbnail width (px)"
+msgstr "Miniatuur breedte (px)"
 
-#: includes/gallery-shortcode.php:60
+#: admin/settings-page.php
+msgid "Test mode"
+msgstr "Testmodus"
+
+#: admin/settings-page.php
+msgid "Use demo albums without HiDrive connection"
+msgstr "Demo-albums gebruiken zonder HiDrive-verbinding"
+
+#: admin/settings-page.php
+msgid "OAuth2 connection"
+msgstr "OAuth2-verbinding"
+
+#: admin/settings-page.php
+msgid "Connect HiGallery to your HiDrive account:"
+msgstr "Verbind HiGallery met je HiDrive-account:"
+
+#: admin/settings-page.php
+msgid "Connect to HiDrive"
+msgstr "Verbind met HiDrive"
+
+#: includes/gallery-shortcode.php
+#: includes/all-albums-shortcode.php
+msgid "No HiDrive connection. Please connect HiDrive first."
+msgstr "Geen HiDrive-verbinding. Maak eerst verbinding met HiDrive."
+
+#: includes/gallery-shortcode.php
+msgid "Cannot load gallery."
+msgstr "Kan de galerij niet laden."
+
+#: includes/gallery-shortcode.php
+#: includes/all-albums-shortcode.php
 msgid "No albums found."
 msgstr "Geen albums gevonden."
 
-#: includes/gutenberg-block.php:28
-msgid "No albums selected."
-msgstr "Geen albums geselecteerd."
+#: includes/gallery-shortcode.php
+msgid "No albums matched the filter."
+msgstr "Geen albums gevonden die overeenkomen met het filter."
 
-#: includes/gallery-shortcode.php:63
+#: includes/gallery-shortcode.php
+msgid "No images found in this album."
+msgstr "Geen afbeeldingen gevonden in dit album."
+
+#: includes/gallery-shortcode.php
 msgid "No photos found in this album."
 msgstr "Geen foto's gevonden in dit album."
 
-#: includes/gutenberg-block.php:46
+#: includes/gutenberg-block.php
+msgid "No albums selected."
+msgstr "Geen albums geselecteerd."
+
+#: includes/gutenberg-block.php
+#: includes/proxy-endpoint.php
 msgid "No valid access token."
-msgstr "Geen geldig toegangstoken"
+msgstr "Geen geldig toegangstoken."
 
-#: admin/settings-page.php:25
-msgid "OAuth2 Connection"
-msgstr "OAuth2 verbinding"
+#: includes/proxy-endpoint.php
+msgid "Invalid or missing path parameter."
+msgstr "Ongeldig of ontbrekend padparameter."
 
-#. Description of the plugin
-msgid ""
-"Show Strato HiDrive albums in WordPress with a fullscreen lightbox viewer. "
-"With secure OAuth2 connection."
-msgstr ""
-"Toon Strato HiDrive-albums in WordPress met een lightbox-viewer op volledig "
-"scherm. Met beveiligde OAuth2-verbinding."
+#: includes/proxy-endpoint.php
+msgid "Access to this path is not allowed."
+msgstr "Toegang tot dit pad is niet toegestaan."
 
-#: admin/settings-page.php:64
-msgid "Test mode"
-msgstr "Test modus"
+#: includes/proxy-endpoint.php
+msgid "No valid HiDrive access token available."
+msgstr "Geen geldig HiDrive-toegangstoken beschikbaar."
 
-#: admin/settings-page.php:59
-msgid "Thumbnail width (px)"
-msgstr "Thumbnail breedte (px)"
+#: includes/proxy-endpoint.php
+msgid "Empty response from HiDrive."
+msgstr "Lege respons van HiDrive."
 
-#: includes/gallery-shortcode.php:16
-msgid "Unable to load gallery: no valid access token."
-msgstr "Kan galerij niet laden: geen geldig toegangstoken."
+#: includes/api-client.php
+msgid "Path and token are required."
+msgstr "Pad en token zijn verplicht."
 
-#: admin/settings-page.php:67
-msgid "Use demo albums (without HiDrive connection)"
-msgstr "Demo albums gebruiken (zonder HiDrive-verbinding)"
+#: includes/api-client.php
+#. translators: %d: HTTP status code returned by HiDrive
+msgid "HiDrive returned status %d."
+msgstr "HiDrive retourneerde statuscode %d."
+
+#: includes/oauth.php
+msgid "Client ID or secret is missing."
+msgstr "Client ID of secret ontbreekt."
+
+#: includes/oauth.php
+msgid "Invalid token response from HiDrive."
+msgstr "Ongeldige tokenrespons van HiDrive."
+
+#: includes/proxy-endpoint.php
+msgid "Too many requests. Please try again later."
+msgstr "Te veel verzoeken. Probeer het later opnieuw."
+
+#: admin/settings-page.php
+msgid "HiGallery: Client ID and secret are not configured."
+msgstr "HiGallery: Client ID en secret zijn niet ingesteld."
+
+#: admin/settings-page.php
+msgid "Go to settings"
+msgstr "Ga naar instellingen"
+
+#: admin/settings-page.php
+msgid "HiGallery: Not connected to HiDrive. Galleries will not load."
+msgstr "HiGallery: Niet verbonden met HiDrive. Galerijen worden niet geladen."
+
+#: admin/settings-page.php
+msgid "Reconnect"
+msgstr "Opnieuw verbinden"
+
+#: admin/settings-page.php
+msgid "HiDrive: connected"
+msgstr "HiDrive: verbonden"
+
+#: admin/settings-page.php
+msgid "Your HiDrive account is linked and galleries will load normally."
+msgstr "Je HiDrive-account is gekoppeld en galerijen worden normaal geladen."
+
+#: admin/settings-page.php
+msgid "HiDrive: not connected"
+msgstr "HiDrive: niet verbonden"
+
+#: admin/settings-page.php
+msgid "Credentials are saved but no valid token exists. Use the button below to reconnect."
+msgstr "Inloggegevens zijn opgeslagen maar er is geen geldig token. Gebruik de knop hieronder om opnieuw te verbinden."
+
+#: admin/settings-page.php
+msgid "HiDrive: not configured"
+msgstr "HiDrive: niet geconfigureerd"
+
+#: admin/settings-page.php
+msgid "Enter your Client ID and Client Secret below, then connect to HiDrive."
+msgstr "Voer hieronder je Client ID en Client Secret in en verbind daarna met HiDrive."

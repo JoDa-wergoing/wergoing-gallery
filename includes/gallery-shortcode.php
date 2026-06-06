@@ -28,7 +28,7 @@ function higallery_gallery_shortcode($atts) {
 
     $token = higallery_get_valid_access_token();
     if (!$token) {
-        return '<p>No HiDrive connection. Please connect HiDrive first.</p>';
+        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'higallery' ) . '</p>';
     }
 
     $default_root = get_option( 'higallery_root_folder', '/' );
@@ -73,15 +73,15 @@ function higallery_gallery_shortcode($atts) {
 
     $api_response = higallery_api_get_folders($path, $token);
     if (empty($api_response) || !is_array($api_response)) {
-        return '<p>Cannot load gallery.</p>';
+        return '<p>' . esc_html__( 'Cannot load gallery.', 'higallery' ) . '</p>';
     }
 
-    $output = '<div class="higallery-wrapper" style="display:flex; flex-wrap:wrap; gap:20px;">';
+    $output = '<div class="higallery-wrapper">';
 
     if (!empty($api_response['images']) && is_array($api_response['images'])) {
 
         $rendered = 0;
-        $output .= '<div class="pswp-gallery higallery" style="display:flex; flex-wrap:wrap; gap:10px;">';
+        $output .= '<div class="pswp-gallery higallery">';
 
         foreach ($api_response['images'] as $image) {
             if (empty($image['path']) || empty($image['name'])) {
@@ -117,7 +117,7 @@ function higallery_gallery_shortcode($atts) {
         $output .= '</div>';
 
         if ($rendered === 0) {
-            $output .= '<p>No images found in this album.</p>';
+            $output .= '<p>' . esc_html__( 'No images found in this album.', 'higallery' ) . '</p>';
         }
 
     } elseif (!empty($api_response['albums']) && is_array($api_response['albums'])) {
@@ -147,10 +147,9 @@ function higallery_gallery_shortcode($atts) {
 
 
             
-            $output .= '<a href="' . esc_url($link) . '" style="width:120px; display:block; text-align:center; text-decoration:none; color:inherit;">';
+            $output .= '<a href="' . esc_url($link) . '" class="higallery-album-link">';
             $output .= '<span class="dashicons dashicons-portfolio" aria-hidden="true"></span>';
-//            $output .= '<div style="font-size:48px; color:#555;">📁</div>';
-            $output .= '<div style="font-size:12px; word-break:break-word;">' . esc_html($album_name) . '</div>';
+            $output .= '<div class="higallery-album-name">' . esc_html($album_name) . '</div>';
             $output .= '</a>';
 
             $rendered++;
@@ -158,14 +157,14 @@ function higallery_gallery_shortcode($atts) {
 
         if ($rendered === 0) {
             if (!empty($selected_norm)) {
-                $output .= '<p>No albums matched the albums filter.</p>';
+                $output .= '<p>' . esc_html__( 'No albums matched the filter.', 'higallery' ) . '</p>';
             } else {
-                $output .= '<p>No albums found.</p>';
+                $output .= '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
             }
         }
 
     } else {
-        $output .= '<p>No photos found in this album.</p>';
+        $output .= '<p>' . esc_html__( 'No photos found in this album.', 'higallery' ) . '</p>';
     }
 
     $output .= '</div>';

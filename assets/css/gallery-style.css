@@ -50,6 +50,30 @@
     justify-content: center;
 }
 
+/* Album grid */
+.higallery-album-link {
+    width: 120px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.higallery-album-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.higallery-album-icon {
+    font-size: 48px;
+    color: #555;
+}
+
+.higallery-album-name {
+    font-size: 12px;
+    word-break: break-word;
+}
+
 .higallery-thumb {
     max-width: 100%;
     height: auto;

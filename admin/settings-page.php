@@ -20,6 +20,88 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+// ---------------------------------------------------------------------------
+// Admin notices
+// ---------------------------------------------------------------------------
+
+/**
+ * Determine the current HiDrive connection status.
+ *
+ * Returns one of three states:
+ *   'unconfigured' — Client ID or secret is missing.
+ *   'disconnected' — Credentials exist but no valid token is stored.
+ *   'connected'    — A valid (or refreshable) token is present.
+ *
+ * @return string
+ */
+function higallery_connection_status(): string {
+	$client_id     = get_option( 'higallery_client_id', '' );
+	$client_secret = get_option( 'higallery_client_secret', '' );
+
+	if ( empty( $client_id ) || empty( $client_secret ) ) {
+		return 'unconfigured';
+	}
+
+	$access_token = get_option( 'higallery_access_token', '' );
+	$expires      = (int) get_option( 'higallery_token_expires', 0 );
+
+	// Token present and not yet expired.
+	if ( $access_token && time() < $expires ) {
+		return 'connected';
+	}
+
+	// No token at all, or token expired and no refresh possible.
+	$refresh_token = get_option( 'higallery_refresh_token', '' );
+	if ( $refresh_token ) {
+		// Refresh token exists — assume refreshable (connected).
+		return 'connected';
+	}
+
+	return 'disconnected';
+}
+
+/**
+ * Show a global admin notice when HiDrive is not connected.
+ *
+ * Only shown to users who can manage options, and only outside the
+ * HiGallery settings page itself (where the inline status is shown instead).
+ */
+add_action( 'admin_notices', function () {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	// Don't show on the HiGallery settings page — inline status is shown there.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$current_page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : '';
+	if ( $current_page === HIGALLERY_MENU_SLUG ) {
+		return;
+	}
+
+	$status = higallery_connection_status();
+
+	if ( 'unconfigured' === $status ) {
+		$settings_url = admin_url( 'options-general.php?page=' . HIGALLERY_MENU_SLUG );
+		printf(
+			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
+			esc_html__( 'HiGallery: Client ID and secret are not configured.', 'higallery' ),
+			esc_url( $settings_url ),
+			esc_html__( 'Go to settings', 'higallery' )
+		);
+		return;
+	}
+
+	if ( 'disconnected' === $status ) {
+		$settings_url = admin_url( 'options-general.php?page=' . HIGALLERY_MENU_SLUG );
+		printf(
+			'<div class="notice notice-error"><p>%s <a href="%s">%s</a></p></div>',
+			esc_html__( 'HiGallery: Not connected to HiDrive. Galleries will not load.', 'higallery' ),
+			esc_url( $settings_url ),
+			esc_html__( 'Reconnect', 'higallery' )
+		);
+	}
+} );
+
 add_action( 'admin_menu', function () {
 	add_options_page(
 		__( 'HiGallery', 'higallery' ),          
@@ -31,9 +113,33 @@ add_action( 'admin_menu', function () {
 } );
 
 function higallery_render_settings_page() {
+	$status = higallery_connection_status();
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html__( 'HiGallery settings', 'higallery' ); ?></h1>
+
+		<?php if ( 'connected' === $status ) : ?>
+		<div class="notice notice-success inline">
+			<p>
+				<strong><?php esc_html_e( 'HiDrive: connected', 'higallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Your HiDrive account is linked and galleries will load normally.', 'higallery' ); ?>
+			</p>
+		</div>
+		<?php elseif ( 'disconnected' === $status ) : ?>
+		<div class="notice notice-error inline">
+			<p>
+				<strong><?php esc_html_e( 'HiDrive: not connected', 'higallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Credentials are saved but no valid token exists. Use the button below to reconnect.', 'higallery' ); ?>
+			</p>
+		</div>
+		<?php elseif ( 'unconfigured' === $status ) : ?>
+		<div class="notice notice-warning inline">
+			<p>
+				<strong><?php esc_html_e( 'HiDrive: not configured', 'higallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Enter your Client ID and Client Secret below, then connect to HiDrive.', 'higallery' ); ?>
+			</p>
+		</div>
+		<?php endif; ?>
 
 		<form method="post" action="options.php">
 			<?php

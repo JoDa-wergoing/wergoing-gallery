@@ -1,9 +1,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: HiGallery\n"
+"Project-Id-Version: HiGallery 1.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-13 06:03+0000\n"
+"POT-Creation-Date: 2026-01-10 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
@@ -12,80 +12,186 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.0; wp-6.8.1; php-8.2.28\n"
 "X-Domain: higallery"
-
-#: includes/gallery-shortcode.php:21
-msgid "Cannot load gallery. Check the settings or API connection."
-msgstr ""
-
-#: admin/settings-page.php:26
-msgid "Click the button below to connect to your HiDrive account:"
-msgstr ""
-
-#: admin/settings-page.php:42
-msgid "Configuration"
-msgstr ""
-
-#: admin/settings-page.php:29
-msgid "Connect to HiDrive"
-msgstr ""
 
 #. Name of the plugin
 msgid "HiGallery"
 msgstr ""
 
-#: admin/settings-page.php:16
-msgid "HiGallery admin page"
-msgstr ""
-
-#: admin/settings-page.php:54
-msgid "HiGallery root folder"
+#. Description of the plugin
+msgid ""
+"Display STRATO HiDrive photo folders as albums in WordPress without "
+"importing files into the Media Library."
 msgstr ""
 
 #. Author of the plugin
-msgid "JoDa & Jake 🥷"
+msgid "weRgoing JoDa"
 msgstr ""
 
-#: includes/gallery-shortcode.php:60
-msgid "No albums found."
+#: admin/settings-page.php
+msgid "HiGallery Settings"
 msgstr ""
 
-#: includes/gutenberg-block.php:28
-msgid "No albums selected."
+#: admin/settings-page.php
+msgid "HiGallery"
 msgstr ""
 
-#: includes/gallery-shortcode.php:63
-msgid "No photos found in this album."
+#: admin/settings-page.php
+msgid "Configuration"
 msgstr ""
 
-#: includes/gutenberg-block.php:46
-msgid "No valid access token."
+#: admin/settings-page.php
+msgid "Client ID"
 msgstr ""
 
-#: admin/settings-page.php:25
-msgid "OAuth2 Connection"
+#: admin/settings-page.php
+msgid "Client Secret"
 msgstr ""
 
-#. Description of the plugin
-msgid ""
-"Show Strato HiDrive albums in WordPress with a fullscreen lightbox viewer. "
-"With secure OAuth2 connection."
+#: admin/settings-page.php
+msgid "Enter new secret"
 msgstr ""
 
-#: admin/settings-page.php:64
-msgid "Test mode"
+#: admin/settings-page.php
+msgid "The client secret is stored securely. Enter a new value to replace it."
 msgstr ""
 
-#: admin/settings-page.php:59
+#: admin/settings-page.php
+msgid "HiGallery root folder"
+msgstr ""
+
+#: admin/settings-page.php
 msgid "Thumbnail width (px)"
 msgstr ""
 
-#: includes/gallery-shortcode.php:16
-msgid "Unable to load gallery: no valid access token."
+#: admin/settings-page.php
+msgid "Test mode"
 msgstr ""
 
-#: admin/settings-page.php:67
-msgid "Use demo albums (without HiDrive connection)"
+#: admin/settings-page.php
+msgid "Use demo albums without HiDrive connection"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "OAuth2 connection"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Connect HiGallery to your HiDrive account:"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Connect to HiDrive"
+msgstr ""
+
+#: includes/gallery-shortcode.php
+#: includes/all-albums-shortcode.php
+msgid "No HiDrive connection. Please connect HiDrive first."
+msgstr ""
+
+#: includes/gallery-shortcode.php
+msgid "Cannot load gallery."
+msgstr ""
+
+#: includes/gallery-shortcode.php
+#: includes/all-albums-shortcode.php
+msgid "No albums found."
+msgstr ""
+
+#: includes/gallery-shortcode.php
+msgid "No albums matched the filter."
+msgstr ""
+
+#: includes/gallery-shortcode.php
+msgid "No images found in this album."
+msgstr ""
+
+#: includes/gallery-shortcode.php
+msgid "No photos found in this album."
+msgstr ""
+
+#: includes/gutenberg-block.php
+msgid "No albums selected."
+msgstr ""
+
+#: includes/gutenberg-block.php
+#: includes/proxy-endpoint.php
+msgid "No valid access token."
+msgstr ""
+
+#: includes/proxy-endpoint.php
+msgid "Invalid or missing path parameter."
+msgstr ""
+
+#: includes/proxy-endpoint.php
+msgid "Access to this path is not allowed."
+msgstr ""
+
+#: includes/proxy-endpoint.php
+msgid "No valid HiDrive access token available."
+msgstr ""
+
+#: includes/proxy-endpoint.php
+msgid "Empty response from HiDrive."
+msgstr ""
+
+#: includes/api-client.php
+msgid "Path and token are required."
+msgstr ""
+
+#: includes/api-client.php
+#. translators: %d: HTTP status code returned by HiDrive
+msgid "HiDrive returned status %d."
+msgstr ""
+
+#: includes/oauth.php
+msgid "Client ID or secret is missing."
+msgstr ""
+
+#: includes/oauth.php
+msgid "Invalid token response from HiDrive."
+msgstr ""
+
+#: includes/proxy-endpoint.php
+msgid "Too many requests. Please try again later."
+msgstr ""
+
+#: admin/settings-page.php
+msgid "HiGallery: Client ID and secret are not configured."
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Go to settings"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "HiGallery: Not connected to HiDrive. Galleries will not load."
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Reconnect"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "HiDrive: connected"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Your HiDrive account is linked and galleries will load normally."
+msgstr ""
+
+#: admin/settings-page.php
+msgid "HiDrive: not connected"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Credentials are saved but no valid token exists. Use the button below to reconnect."
+msgstr ""
+
+#: admin/settings-page.php
+msgid "HiDrive: not configured"
+msgstr ""
+
+#: admin/settings-page.php
+msgid "Enter your Client ID and Client Secret below, then connect to HiDrive."
 msgstr ""

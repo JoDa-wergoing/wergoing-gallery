@@ -39,23 +39,69 @@ require_once HIGALLERY_PLUGIN_DIR . 'admin/settings-page.php';
 require_once HIGALLERY_PLUGIN_DIR . 'includes/proxy-endpoint.php';
 require_once HIGALLERY_PLUGIN_DIR . 'includes/gutenberg-block.php';
 
-add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style(
+/**
+ * Determine whether the current post/page contains a HiGallery shortcode or block.
+ *
+ * Called during 'wp' action (after the query is set) so that $post is available.
+ *
+ * @return bool
+ */
+function higallery_is_active_on_page(): bool {
+    global $post;
+
+    if ( ! ( $post instanceof WP_Post ) ) {
+        return false;
+    }
+
+    // Gutenberg block.
+    if ( has_block( 'higallery/block', $post ) ) {
+        return true;
+    }
+
+    // Either shortcode variant.
+    if (
+        has_shortcode( $post->post_content, 'higallery' ) ||
+        has_shortcode( $post->post_content, 'higallery_all_albums' )
+    ) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Register (but do not enqueue) all frontend assets.
+ *
+ * Actual enqueueing happens in higallery_enqueue_frontend_assets(),
+ * which only runs on pages that contain a HiGallery shortcode or block.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+    // 'dashicons' is already registered by WordPress core — no need to register it here.
+    // We only need to enqueue it on the frontend when our gallery is active.
+
+    wp_register_style(
+        'higallery-css',
+        HIGALLERY_PLUGIN_URL . 'assets/css/gallery-style.css',
+        [ 'dashicons' ],
+        '1.2.0'
+    );
+
+    wp_register_style(
         'photoswipe-css',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe.css',
         [],
         '5.3.8'
     );
 
-    wp_enqueue_script(
+    wp_register_script(
         'photoswipe-core',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe.umd.min.js',
         [],
         '5.3.8',
         true
     );
-    
-    wp_enqueue_script(
+
+    wp_register_script(
         'photoswipe-js',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe-lightbox.umd.min.js',
         [ 'photoswipe-core' ],
@@ -63,7 +109,7 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
-    wp_enqueue_script(
+    wp_register_script(
         'photoswipe-init',
         HIGALLERY_PLUGIN_URL . 'assets/js/photoswipe-init.js',
         [ 'photoswipe-js' ],
@@ -71,19 +117,41 @@ add_action('wp_enqueue_scripts', function () {
         true
     );
 
-    wp_enqueue_script(
+    wp_register_script(
         'higallery-photoswipe',
         HIGALLERY_PLUGIN_URL . 'assets/js/higallery-photoswipe.js',
-        ['photoswipe-lightbox'],
+        [ 'photoswipe-js' ],
         '1.2.0',
         true
-);
-    
-    wp_enqueue_script(
+    );
+
+    wp_register_script(
         'higallery-lazyload',
         HIGALLERY_PLUGIN_URL . 'assets/js/higallery-lazyload.js',
         [],
         '1.2.0',
         true
     );
-});
+} );
+
+/**
+ * Enqueue all registered HiGallery assets — but only on pages that need them.
+ *
+ * Runs on 'wp' (after the main query) so has_block() / has_shortcode()
+ * can inspect the current post object.
+ */
+add_action( 'wp', function () {
+    if ( ! higallery_is_active_on_page() ) {
+        return;
+    }
+
+    wp_enqueue_style( 'dashicons' );
+    wp_enqueue_style( 'higallery-css' );
+    wp_enqueue_style( 'photoswipe-css' );
+
+    wp_enqueue_script( 'photoswipe-core' );
+    wp_enqueue_script( 'photoswipe-js' );
+    wp_enqueue_script( 'photoswipe-init' );
+    wp_enqueue_script( 'higallery-photoswipe' );
+    wp_enqueue_script( 'higallery-lazyload' );
+} );

@@ -2,7 +2,7 @@
 Contributors: JoDa, weRgoing
 Tags: gallery, photos, albums, hidrive
 Requires at least: 6.0
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 8.0
 Stable tag: 1.2.0
 License: GPLv2 or later
