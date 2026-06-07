@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * HiGallery
  *
@@ -18,8 +19,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
 add_action('enqueue_block_editor_assets', function () {
     wp_enqueue_script(
         'higallery-block',
@@ -31,7 +30,7 @@ add_action('enqueue_block_editor_assets', function () {
 });
 
 add_action('init', function () {
-    register_block_type('higallery/block', [
+    register_block_type('wergoing-gallery/block', [
         'editor_script'   => 'higallery-block',
         'render_callback' => 'higallery_render_block',
         'attributes'      => [
@@ -47,7 +46,7 @@ add_action('init', function () {
 function higallery_render_block($attributes) {
     $albums = isset($attributes['albums']) ? array_map('sanitize_text_field', (array) $attributes['albums']) : [];
     if (empty($albums)) {
-        return '<p>' . __('No albums selected.','higallery') .'</p>';
+        return '<p>' . __('No albums selected.','wergoing-gallery') .'</p>';
     }
     return do_shortcode('[higallery albums="' . esc_attr(implode(';', $albums)) . '"]');
 }
@@ -65,7 +64,7 @@ add_action('rest_api_init', function () {
 function higallery_rest_get_albums() {
     $token = higallery_get_valid_access_token();
     if (!$token) {
-        return new WP_Error('no_token', __('No valid access token.','higallery'), ['status' => 403]);
+        return new WP_Error('no_token', __('No valid access token.','wergoing-gallery'), ['status' => 403]);
     }
     $root = get_option('higallery_root_folder', '/');
     $api_response = higallery_api_get_folders($root, $token);

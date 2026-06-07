@@ -71,7 +71,7 @@ function higallery_all_albums_shortcode($atts = []): string {
     // Ensure we're always visitor-facing and robust.
     $token = higallery_get_valid_access_token();
     if (!$token) {
-        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'higallery' ) . '</p>';
+        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'wergoing-gallery' ) . '</p>';
     }
 
     $default_root = get_option('higallery_root_folder', '/');
@@ -98,7 +98,7 @@ function higallery_all_albums_shortcode($atts = []): string {
 $albums = higallery_get_albums_cached($path, (string) $token);
 
     if (empty($albums)) {
-        return '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
+        return '<p>' . esc_html__( 'No albums found.', 'wergoing-gallery' ) . '</p>';
     }
 
     $out = '<div class="higallery-wrapper">';
@@ -126,7 +126,7 @@ $albums = higallery_get_albums_cached($path, (string) $token);
     }
 
     if ($rendered === 0) {
-        $out .= '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
+        $out .= '<p>' . esc_html__( 'No albums found.', 'wergoing-gallery' ) . '</p>';
     }
 
     $out .= '</div>';

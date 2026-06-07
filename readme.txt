@@ -1,6 +1,6 @@
-=== HiGallery ===
+=== weRgoing Gallery for HiDrive ===
 Contributors: JoDa, weRgoing
-Tags: gallery, photos, albums, hidrive
+Tags: gallery, photos, albums, hidrive, strato
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 8.0
@@ -12,7 +12,7 @@ Display STRATO HiDrive photo folders as albums in WordPress without importing fi
 
 == Description ==
 
-HiGallery allows you to display photo folders from your STRATO HiDrive account directly on your WordPress site as structured albums.
+weRgoing Gallery for HiDrive allows you to display photo folders from your STRATO HiDrive account directly on your WordPress site as structured albums.
 
 Images are not imported into the WordPress Media Library.
 All files remain stored in HiDrive and are retrieved on demand.
@@ -22,7 +22,7 @@ This plugin is intended for users who:
 * Want to avoid Media Library duplication
 * Prefer folder-based album management
 
-HiGallery follows standard WordPress practices and uses the WordPress REST API for media delivery.
+This plugin follows standard WordPress practices and uses the WordPress REST API for media delivery.
 
 == Features ==
 
@@ -37,7 +37,7 @@ HiGallery follows standard WordPress practices and uses the WordPress REST API f
 
 == Proxy Endpoint and Security Model ==
 
-HiGallery exposes a public REST proxy endpoint to allow visitors to load images and album data from HiDrive without client-side authentication.
+This plugin exposes a public REST proxy endpoint to allow visitors to load images and album data from HiDrive without client-side authentication.
 
 This endpoint is intentionally public.
 
@@ -61,7 +61,7 @@ This design prioritizes simplicity and performance. Stricter access control requ
 
 == Usage ==
 
-HiGallery supports two rendering methods:
+This plugin supports two rendering methods:
 * Shortcodes
 * Gutenberg block
 
@@ -84,7 +84,7 @@ Recommended when:
 
 == Gutenberg Block ==
 
-HiGallery provides a Gutenberg block to display albums.
+This plugin provides a Gutenberg block to display albums.
 
 Behavior:
 - Album selection is stored as static block attributes.
@@ -105,7 +105,7 @@ Recommended when:
 Dynamic loading applies only to shortcodes.
 
 === Cache behavior ===
-- HiGallery uses a short internal cache (approximately 5 minutes) to reduce API load.
+- This plugin uses a short internal cache (approximately 5 minutes) to reduce API load.
 - HiDrive remains the source of truth.
 
 === Page caching ===
@@ -117,17 +117,17 @@ To minimize delays:
 
 == Installation ==
 
-1. Upload the `higallery` folder to `/wp-content/plugins/`
+1. Upload the `wergoing-gallery` folder to `/wp-content/plugins/`
 2. Activate the plugin via the WordPress Plugins menu
-3. Configure HiDrive access in the HiGallery settings
+3. Configure HiDrive access in the weRgoing Gallery settings
 
 == Quick Start ==
 
-1. Configure your STRATO HiDrive connection in the HiGallery settings.
+1. Configure your STRATO HiDrive connection in the weRgoing Gallery settings.
 2. Organize albums using folders in HiDrive.
 3. Create a page and insert either:
    - the `[higallery_all_albums]` shortcode, or
-   - the HiGallery Gutenberg block
+   - the weRgoing Gallery Gutenberg block
 4. Publish the page.
 
 == Frequently Asked Questions ==

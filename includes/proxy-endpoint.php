@@ -128,7 +128,7 @@ function higallery_proxy_file( WP_REST_Request $request ) {
         }
         return new WP_Error(
             'higallery_rate_limited',
-            __( 'Too many requests. Please try again later.', 'higallery' ),
+            __( 'Too many requests. Please try again later.', 'wergoing-gallery' ),
             [ 'status' => 429 ]
         );
     }
@@ -140,7 +140,7 @@ function higallery_proxy_file( WP_REST_Request $request ) {
     if ( empty( $path ) ) {
         return new WP_Error(
             'higallery_invalid_path',
-            __( 'Invalid or missing path parameter.', 'higallery' ),
+            __( 'Invalid or missing path parameter.', 'wergoing-gallery' ),
             [ 'status' => 400 ]
         );
     }
@@ -149,7 +149,7 @@ function higallery_proxy_file( WP_REST_Request $request ) {
     if ( ! higallery_is_path_allowed( $path ) ) {
         return new WP_Error(
             'higallery_forbidden_path',
-            __( 'Access to this path is not allowed.', 'higallery' ),
+            __( 'Access to this path is not allowed.', 'wergoing-gallery' ),
             [ 'status' => 403 ]
         );
     }
@@ -159,7 +159,7 @@ function higallery_proxy_file( WP_REST_Request $request ) {
     if ( ! $token ) {
         return new WP_Error(
             'higallery_no_token',
-            __( 'No valid HiDrive access token available.', 'higallery' ),
+            __( 'No valid HiDrive access token available.', 'wergoing-gallery' ),
             [ 'status' => 401 ]
         );
     }
@@ -176,7 +176,7 @@ function higallery_proxy_file( WP_REST_Request $request ) {
     if ( empty( $body ) ) {
         return new WP_Error(
             'higallery_empty_response',
-            __( 'Empty response from HiDrive.', 'higallery' ),
+            __( 'Empty response from HiDrive.', 'wergoing-gallery' ),
             [ 'status' => 502 ]
         );
     }

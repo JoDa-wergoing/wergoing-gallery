@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * HiGallery
  *
@@ -18,15 +19,12 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
-
 if ( ! defined('HIGALLERY_HIDRIVE_AUTHORIZE') ) {
     define('HIGALLERY_HIDRIVE_AUTHORIZE', 'https://my.hidrive.com/oauth2/authorize');
 }
 if ( ! defined('HIGALLERY_HIDRIVE_TOKEN') ) {
     define('HIGALLERY_HIDRIVE_TOKEN', 'https://my.hidrive.com/oauth2/token');
 }
-
 
 function higallery_get_oauth_authorize_url() {
     $client_id = get_option('higallery_client_id');
@@ -65,7 +63,7 @@ function higallery_exchange_code_for_token($code) {
     $redirect_uri  = higallery_get_redirect_uri();
 
     if (empty($client_id) || empty($client_secret)) {
-        return new WP_Error('oauth_config', __( 'Client ID or secret is missing.', 'higallery' ));
+        return new WP_Error('oauth_config', __( 'Client ID or secret is missing.', 'wergoing-gallery' ));
     }
 
     $body = [
@@ -88,7 +86,7 @@ function higallery_exchange_code_for_token($code) {
     $code = wp_remote_retrieve_response_code($resp);
     $json = json_decode(wp_remote_retrieve_body($resp), true);
     if ($code !== 200 || !is_array($json)) {
-        return new WP_Error('oauth_bad_response', __( 'Invalid token response from HiDrive.', 'higallery' ));
+        return new WP_Error('oauth_bad_response', __( 'Invalid token response from HiDrive.', 'wergoing-gallery' ));
     }
 
     return $json;

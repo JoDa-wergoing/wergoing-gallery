@@ -67,7 +67,7 @@ function higallery_hidrive_get_file( string $path, string $token ) {
     if ( empty( $path ) || empty( $token ) ) {
         return new WP_Error(
             'higallery_invalid_args',
-            __( 'Path and token are required.', 'higallery' )
+            __( 'Path and token are required.', 'wergoing-gallery' )
         );
     }
 
@@ -93,7 +93,7 @@ function higallery_hidrive_get_file( string $path, string $token ) {
             'higallery_hidrive_error',
             sprintf(
                 /* translators: %d: HTTP status code returned by HiDrive */
-                __( 'HiDrive returned status %d.', 'higallery' ),
+                __( 'HiDrive returned status %d.', 'wergoing-gallery' ),
                 $code
             ),
             [ 'status' => $code ]

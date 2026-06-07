@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: HiGallery
+ * Plugin Name: weRgoing Gallery for HiDrive
  * Plugin URI:  https://wergoing.com/foto-album
  * Description: Description: Show your STRATO HiDrive photo folders as secure WordPress photo albums without importing images.
  * Version:     1.2.0
@@ -8,7 +8,7 @@
  * Author URI:  https://wergoing.com
  * Requires at least: 6.0
  * Requires PHP: 8.0
- * Text Domain: higallery
+ * Text Domain: wergoing-gallery
  * Domain Path: /languages
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 // Definieer een constante voor de menu-slug
 if ( ! defined('HIGALLERY_MENU_SLUG') ) {
-    define('HIGALLERY_MENU_SLUG', 'higallery-settings');
+    define('HIGALLERY_MENU_SLUG', 'wergoing-gallery-settings');
 }
 
 
@@ -54,13 +54,13 @@ function higallery_is_active_on_page(): bool {
     }
 
     // Gutenberg block.
-    if ( has_block( 'higallery/block', $post ) ) {
+    if ( has_block( 'wergoing-gallery/block', $post ) ) {
         return true;
     }
 
     // Either shortcode variant.
     if (
-        has_shortcode( $post->post_content, 'higallery' ) ||
+        has_shortcode( $post->post_content, 'wergoing-gallery' ) ||
         has_shortcode( $post->post_content, 'higallery_all_albums' )
     ) {
         return true;
@@ -90,14 +90,14 @@ add_action( 'wp_enqueue_scripts', function () {
         'photoswipe-css',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe.css',
         [],
-        '5.3.8'
+        '5.4.4'
     );
 
     wp_register_script(
         'photoswipe-core',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe.umd.min.js',
         [],
-        '5.3.8',
+        '5.4.4',
         true
     );
 
@@ -105,7 +105,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'photoswipe-js',
         HIGALLERY_PLUGIN_URL . 'assets/photoswipe/photoswipe-lightbox.umd.min.js',
         [ 'photoswipe-core' ],
-        '5.3.8',
+        '5.4.4',
         true
     );
 

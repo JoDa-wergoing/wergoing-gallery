@@ -24,11 +24,11 @@ function higallery_gallery_shortcode($atts) {
     $atts = shortcode_atts([
         'path'   => '',
         'albums' => '',
-    ], $atts, 'higallery');
+    ], $atts, 'wergoing-gallery');
 
     $token = higallery_get_valid_access_token();
     if (!$token) {
-        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'higallery' ) . '</p>';
+        return '<p>' . esc_html__( 'No HiDrive connection. Please connect HiDrive first.', 'wergoing-gallery' ) . '</p>';
     }
 
     $default_root = get_option( 'higallery_root_folder', '/' );
@@ -73,7 +73,7 @@ function higallery_gallery_shortcode($atts) {
 
     $api_response = higallery_api_get_folders($path, $token);
     if (empty($api_response) || !is_array($api_response)) {
-        return '<p>' . esc_html__( 'Cannot load gallery.', 'higallery' ) . '</p>';
+        return '<p>' . esc_html__( 'Cannot load gallery.', 'wergoing-gallery' ) . '</p>';
     }
 
     $output = '<div class="higallery-wrapper">';
@@ -117,7 +117,7 @@ function higallery_gallery_shortcode($atts) {
         $output .= '</div>';
 
         if ($rendered === 0) {
-            $output .= '<p>' . esc_html__( 'No images found in this album.', 'higallery' ) . '</p>';
+            $output .= '<p>' . esc_html__( 'No images found in this album.', 'wergoing-gallery' ) . '</p>';
         }
 
     } elseif (!empty($api_response['albums']) && is_array($api_response['albums'])) {
@@ -157,14 +157,14 @@ function higallery_gallery_shortcode($atts) {
 
         if ($rendered === 0) {
             if (!empty($selected_norm)) {
-                $output .= '<p>' . esc_html__( 'No albums matched the filter.', 'higallery' ) . '</p>';
+                $output .= '<p>' . esc_html__( 'No albums matched the filter.', 'wergoing-gallery' ) . '</p>';
             } else {
-                $output .= '<p>' . esc_html__( 'No albums found.', 'higallery' ) . '</p>';
+                $output .= '<p>' . esc_html__( 'No albums found.', 'wergoing-gallery' ) . '</p>';
             }
         }
 
     } else {
-        $output .= '<p>' . esc_html__( 'No photos found in this album.', 'higallery' ) . '</p>';
+        $output .= '<p>' . esc_html__( 'No photos found in this album.', 'wergoing-gallery' ) . '</p>';
     }
 
     $output .= '</div>';

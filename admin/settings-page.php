@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) { exit; }
 /**
  * HiGallery
  *
@@ -17,8 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
-if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 // ---------------------------------------------------------------------------
 // Admin notices
@@ -84,9 +83,9 @@ add_action( 'admin_notices', function () {
 		$settings_url = admin_url( 'options-general.php?page=' . HIGALLERY_MENU_SLUG );
 		printf(
 			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
-			esc_html__( 'HiGallery: Client ID and secret are not configured.', 'higallery' ),
+			esc_html__( 'HiGallery: Client ID and secret are not configured.', 'wergoing-gallery' ),
 			esc_url( $settings_url ),
-			esc_html__( 'Go to settings', 'higallery' )
+			esc_html__( 'Go to settings', 'wergoing-gallery' )
 		);
 		return;
 	}
@@ -95,20 +94,20 @@ add_action( 'admin_notices', function () {
 		$settings_url = admin_url( 'options-general.php?page=' . HIGALLERY_MENU_SLUG );
 		printf(
 			'<div class="notice notice-error"><p>%s <a href="%s">%s</a></p></div>',
-			esc_html__( 'HiGallery: Not connected to HiDrive. Galleries will not load.', 'higallery' ),
+			esc_html__( 'HiGallery: Not connected to HiDrive. Galleries will not load.', 'wergoing-gallery' ),
 			esc_url( $settings_url ),
-			esc_html__( 'Reconnect', 'higallery' )
+			esc_html__( 'Reconnect', 'wergoing-gallery' )
 		);
 	}
 } );
 
 add_action( 'admin_menu', function () {
 	add_options_page(
-		__( 'HiGallery', 'higallery' ),          
-		__( 'HiGallery', 'higallery' ),          
-		'manage_options',                        
-		'higallery-settings',                    
-		'higallery_render_settings_page'         
+		__( 'weRgoing Gallery', 'wergoing-gallery' ),
+		__( 'weRgoing Gallery', 'wergoing-gallery' ),
+		'manage_options',
+		'wergoing-gallery-settings',
+		'higallery_render_settings_page'
 	);
 } );
 
@@ -116,49 +115,75 @@ function higallery_render_settings_page() {
 	$status = higallery_connection_status();
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html__( 'HiGallery settings', 'higallery' ); ?></h1>
+		<h1><?php echo esc_html__( 'HiGallery settings', 'wergoing-gallery' ); ?></h1>
 
 		<?php if ( 'connected' === $status ) : ?>
 		<div class="notice notice-success inline">
 			<p>
-				<strong><?php esc_html_e( 'HiDrive: connected', 'higallery' ); ?></strong>
-				&mdash; <?php esc_html_e( 'Your HiDrive account is linked and galleries will load normally.', 'higallery' ); ?>
+				<strong><?php esc_html_e( 'HiDrive: connected', 'wergoing-gallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Your HiDrive account is linked and galleries will load normally.', 'wergoing-gallery' ); ?>
 			</p>
 		</div>
 		<?php elseif ( 'disconnected' === $status ) : ?>
 		<div class="notice notice-error inline">
 			<p>
-				<strong><?php esc_html_e( 'HiDrive: not connected', 'higallery' ); ?></strong>
-				&mdash; <?php esc_html_e( 'Credentials are saved but no valid token exists. Use the button below to reconnect.', 'higallery' ); ?>
+				<strong><?php esc_html_e( 'HiDrive: not connected', 'wergoing-gallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Credentials are saved but no valid token exists. Use the button below to reconnect.', 'wergoing-gallery' ); ?>
 			</p>
 		</div>
 		<?php elseif ( 'unconfigured' === $status ) : ?>
 		<div class="notice notice-warning inline">
 			<p>
-				<strong><?php esc_html_e( 'HiDrive: not configured', 'higallery' ); ?></strong>
-				&mdash; <?php esc_html_e( 'Enter your Client ID and Client Secret below, then connect to HiDrive.', 'higallery' ); ?>
+				<strong><?php esc_html_e( 'HiDrive: not configured', 'wergoing-gallery' ); ?></strong>
+				&mdash; <?php esc_html_e( 'Enter your Client ID and Client Secret below, then connect to HiDrive.', 'wergoing-gallery' ); ?>
 			</p>
 		</div>
 		<?php endif; ?>
 
 		<form method="post" action="options.php">
 			<?php
-			settings_fields( 'higallery_settings' );
-			do_settings_sections( 'higallery-settings' );
+			settings_fields( 'wergoing_gallery_settings' );
+			do_settings_sections( 'wergoing-gallery-settings' );
 			submit_button();
 			?>
 		</form>
 
 		<hr>
 
-		<h2><?php echo esc_html__( 'OAuth2 connection', 'higallery' ); ?></h2>
-		<p><?php echo esc_html__( 'Connect HiGallery to your HiDrive account:', 'higallery' ); ?></p>
+		<h2><?php echo esc_html__( 'OAuth2 connection', 'wergoing-gallery' ); ?></h2>
+		<p><?php echo esc_html__( 'Connect this plugin to your HiDrive account:', 'wergoing-gallery' ); ?></p>
+
+		<table class="form-table" role="presentation">
+			<tr>
+				<th scope="row">
+					<?php echo esc_html__( 'Redirect URI', 'wergoing-gallery' ); ?>
+				</th>
+				<td>
+					<?php
+					$callback_url = rest_url( 'wergoing-gallery/oauth/callback' );
+					?>
+					<code style="user-select:all; font-size:13px;"><?php echo esc_url( $callback_url ); ?></code>
+					<button
+						type="button"
+						class="button button-secondary"
+						style="margin-left:8px;"
+						onclick="navigator.clipboard.writeText('<?php echo esc_js( $callback_url ); ?>').then(function(){ this.textContent='<?php echo esc_js( __( 'Copied!', 'wergoing-gallery' ) ); ?>'; }.bind(this));"
+					>
+						<?php echo esc_html__( 'Copy', 'wergoing-gallery' ); ?>
+					</button>
+					<p class="description">
+						<?php echo esc_html__( 'Use this exact URL when registering your app at developer.hidrive.com/contact.', 'wergoing-gallery' ); ?>
+					</p>
+				</td>
+			</tr>
+		</table>
+
 		<?php
 		$auth_url = higallery_get_oauth_authorize_url();
 		printf(
 			'<a href="%s" class="button button-primary">%s</a>',
 			esc_url( $auth_url ),
-			esc_html__( 'Connect to HiDrive', 'higallery' )
+			esc_html__( 'Connect to HiDrive', 'wergoing-gallery' )
 		);
 		?>
 	</div>
@@ -193,13 +218,19 @@ function higallery_sanitize_thumbnail_size( $value ) {
 }
 
 function higallery_sanitize_client_secret( $input ) {
-	$input  = is_string( $input ) ? trim( $input ) : '';
+	// OAuth2 client secrets may contain characters that sanitize_text_field()
+	// would strip or modify (e.g. <, >, &, special UTF-8). Per WordPress.org
+	// review feedback, we intentionally avoid sanitize_text_field() here and
+	// only unslash + trim, which is safe for password-like values.
+	$input  = is_string( $input ) ? trim( wp_unslash( $input ) ) : '';
 	$stored = (string) get_option( 'higallery_client_secret', '' );
 
+	// Empty input = keep existing stored value (field was left blank).
 	if ( '' === $input ) {
 		return $stored;
 	}
 
+	// Masked placeholder (all asterisks, same length) = keep existing stored value.
 	if (
 		$stored &&
 		strlen( $input ) === strlen( $stored ) &&
@@ -208,13 +239,14 @@ function higallery_sanitize_client_secret( $input ) {
 		return $stored;
 	}
 
-	return sanitize_text_field( $input );
+	// Store the raw (unslashed, trimmed) secret value.
+	return $input;
 }
 
 add_action( 'admin_init', function () {
 
 	register_setting(
-		'higallery_settings',
+		'wergoing_gallery_settings',
 		'higallery_client_id',
 		array(
 			'type'              => 'string',
@@ -223,7 +255,7 @@ add_action( 'admin_init', function () {
 	);
 
 	register_setting(
-		'higallery_settings',
+		'wergoing_gallery_settings',
 		'higallery_client_secret',
 		array(
 			'type'              => 'string',
@@ -232,7 +264,7 @@ add_action( 'admin_init', function () {
 	);
 
 	register_setting(
-		'higallery_settings',
+		'wergoing_gallery_settings',
 		'higallery_root_folder',
 		array(
 			'type'              => 'string',
@@ -241,7 +273,7 @@ add_action( 'admin_init', function () {
 	);
 
 	register_setting(
-		'higallery_settings',
+		'wergoing_gallery_settings',
 		'higallery_thumbnail_size',
 		array(
 			'type'              => 'integer',
@@ -250,7 +282,7 @@ add_action( 'admin_init', function () {
 	);
 
 	register_setting(
-		'higallery_settings',
+		'wergoing_gallery_settings',
 		'higallery_test_mode',
 		array(
 			'type'              => 'integer',
@@ -260,14 +292,14 @@ add_action( 'admin_init', function () {
 
 	add_settings_section(
 		'higallery_main',
-		esc_html__( 'Configuration', 'higallery' ),
+		esc_html__( 'Configuration', 'wergoing-gallery' ),
 		null,
-		'higallery-settings'
+		'wergoing-gallery-settings'
 	);
 
 	add_settings_field(
 		'higallery_client_id',
-		esc_html__( 'Client ID', 'higallery' ),
+		esc_html__( 'Client ID', 'wergoing-gallery' ),
 		function () {
 			$value = get_option( 'higallery_client_id', '' );
 			printf(
@@ -275,13 +307,13 @@ add_action( 'admin_init', function () {
 				esc_attr( $value )
 			);
 		},
-		'higallery-settings',
+		'wergoing-gallery-settings',
 		'higallery_main'
 	);
 
 	add_settings_field(
 		'higallery_client_secret',
-		esc_html__( 'Client Secret', 'higallery' ),
+		esc_html__( 'Client Secret', 'wergoing-gallery' ),
 		function () {
 			$stored  = (string) get_option( 'higallery_client_secret', '' );
 			$display = $stored ? str_repeat( '*', strlen( $stored ) ) : '';
@@ -289,22 +321,22 @@ add_action( 'admin_init', function () {
 			printf(
 				'<input type="password" name="higallery_client_secret" value="%s" class="regular-text" autocomplete="new-password" placeholder="%s" />',
 				esc_attr( $display ),
-				esc_attr__( 'Enter new secret', 'higallery' )
+				esc_attr__( 'Enter new secret', 'wergoing-gallery' )
 			);
 
 			if ( $stored ) {
 				echo '<p class="description">' .
-					esc_html__( 'The client secret is stored securely. Enter a new value to replace it.', 'higallery' ) .
+					esc_html__( 'The client secret is stored securely. Enter a new value to replace it.', 'wergoing-gallery' ) .
 				'</p>';
 			}
 		},
-		'higallery-settings',
+		'wergoing-gallery-settings',
 		'higallery_main'
 	);
 
 	add_settings_field(
 		'higallery_root_folder',
-		esc_html__( 'HiGallery root folder', 'higallery' ),
+		esc_html__( 'HiGallery root folder', 'wergoing-gallery' ),
 		function () {
 			$value = get_option( 'higallery_root_folder', '/' );
 			printf(
@@ -312,13 +344,13 @@ add_action( 'admin_init', function () {
 				esc_attr( $value )
 			);
 		},
-		'higallery-settings',
+		'wergoing-gallery-settings',
 		'higallery_main'
 	);
 
 	add_settings_field(
 		'higallery_thumbnail_size',
-		esc_html__( 'Thumbnail width (px)', 'higallery' ),
+		esc_html__( 'Thumbnail width (px)', 'wergoing-gallery' ),
 		function () {
 			$value = get_option( 'higallery_thumbnail_size', 150 );
 			printf(
@@ -326,22 +358,22 @@ add_action( 'admin_init', function () {
 				esc_attr( $value )
 			);
 		},
-		'higallery-settings',
+		'wergoing-gallery-settings',
 		'higallery_main'
 	);
 
 	add_settings_field(
 		'higallery_test_mode',
-		esc_html__( 'Test mode', 'higallery' ),
+		esc_html__( 'Test mode', 'wergoing-gallery' ),
 		function () {
 			$value = (int) get_option( 'higallery_test_mode', 0 );
 			printf(
 				'<label><input type="checkbox" name="higallery_test_mode" value="1" %s /> %s</label>',
 				checked( 1, $value, false ),
-				esc_html__( 'Use demo albums without HiDrive connection', 'higallery' )
+				esc_html__( 'Use demo albums without HiDrive connection', 'wergoing-gallery' )
 			);
 		},
-		'higallery-settings',
+		'wergoing-gallery-settings',
 		'higallery_main'
 	);
 
